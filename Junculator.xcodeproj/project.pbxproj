@@ -59,8 +59,8 @@
 				2978141E29703BC30090FC78 /* AppDelegate.swift */,
 				2978142029703BC30090FC78 /* SceneDelegate.swift */,
 				2978142229703BC30090FC78 /* ViewController.swift */,
-				2978142429703BC30090FC78 /* Main.storyboard */,
 				2978142729703BC50090FC78 /* Assets.xcassets */,
+				2978142429703BC30090FC78 /* Main.storyboard */,
 				2978142929703BC50090FC78 /* LaunchScreen.storyboard */,
 				2978142C29703BC50090FC78 /* Info.plist */,
 			);
