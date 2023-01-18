@@ -20,24 +20,42 @@ class ViewController: UIViewController {
     }
     
     var inputString: String = "0"
-    var numbers: [Int] = []
-    var sign: Int = 1
-    var tmp: Int = 0
-  
+    var prevOper: String = "+"
+    var inputLabel: String = ""
+    
+    var prev: Int = 0
+    var current: Int = 0
+    
+    
     
     func calculate() {
-        numbers.append(Int(inputString)!)
-        print("\(numbers)")
-        if sign == 1 {
-            tmp += numbers.last!
-        }else if sign == 2 {
-            tmp -= numbers.last!
-        }else if sign == 3 {
-            tmp *= numbers.last!
-        }else if sign == 4 {
-            tmp /= numbers.last!
+        if prev == 0 {
+            prev = Int(inputString)!
+        }else {
+            current = Int(inputString)!
+            if prevOper == "+"{
+                prev += current
+                output.text = String(prev)
+            }else if prevOper == "-"{
+                prev -= current
+                output.text = String(prev)
+            }else if prevOper == "x"{
+                prev *= current
+                output.text = String(prev)
+            }else if prevOper == "÷"{
+                prev /= current
+                output.text = String(prev)
+            }
         }
-        output.text = String(tmp)
+    }
+
+    func setInputLabel(_ sender: UIButton) {
+        inputLabel += (sender.titleLabel?.text!)!
+        input.text = inputLabel
+        print(inputLabel)
+    }
+    func cal() {
+        
     }
     
     //MARK: - IBAction
@@ -45,74 +63,39 @@ class ViewController: UIViewController {
     //Operation
     
     @IBAction func operation(_ sender: UIButton) {
-        
-        if inputString == "" {
-            
-        }else {
-            
-            if sender.titleLabel?.text == "+" {
-                
-                if numbers.isEmpty {
-                    numbers.append(Int(inputString)!)
-                    tmp = numbers.last!
-                    sign = 1
-                }else {
-                    calculate()
-                }
-                sign = 1
-                inputString = ""
-            }else if sender.titleLabel?.text == "-" {
-                
-                if numbers.isEmpty {
-                    numbers.append(Int(inputString)!)
-                    tmp = numbers.last!
-                    sign = 2
-                }else {
-                    calculate()
-                }
-                output.text = String(tmp)
-                sign = 2
-                inputString = ""
-                
-            }else if sender.titleLabel?.text == "x" {
-                
-                if numbers.isEmpty {
-                    numbers.append(Int(inputString)!)
-                    tmp = numbers.last!
-                    sign = 3
-                }else {
-                    calculate()
-                    
-                }
-                output.text = String(tmp)
-                sign = 3
-                inputString = ""
-            }else if sender.titleLabel?.text == "÷" {
-                
-                if numbers.isEmpty {
-                    numbers.append(Int(inputString)!)
-                    tmp = numbers.last!
-                    sign = 4
-                }else {
-                    calculate()
-                }
-                output.text = String(tmp)
-                sign = 4
-                inputString = ""
-            }else if sender.titleLabel?.text == "=" {
-                
+        if inputString != "" {
+            if sender.titleLabel?.text! == "+"{
+                setInputLabel(sender)
                 calculate()
-                output.text = String(tmp)
-                numbers = []
-                tmp = 0
-                inputString = ""
+            }else if sender.titleLabel?.text! == "-"{
+                setInputLabel(sender)
+                calculate()
+            }else if sender.titleLabel?.text! == "x"{
+                setInputLabel(sender)
+                calculate()
+            }else if sender.titleLabel?.text! == "÷"{
+                setInputLabel(sender)
+                calculate()
+            }else if sender.titleLabel?.text! == "="{
+                calculate()
+                cal()
+                inputLabel = ""
+                input.text =  inputLabel
+                output.text = String(prev)
+                prev = 0
             }
+            prevOper = sender.titleLabel!.text!
+            inputString  = "0"
         }
     }
     
     @IBAction func clear(_ sender: Any) {
-        inputString = ""
+        inputLabel = ""
+        inputString = "0"
+        input.text = inputLabel
         output.text = inputString
+        prev = 0
+        current = 0
     }
     
     
@@ -122,11 +105,13 @@ class ViewController: UIViewController {
     @IBAction func touchNumber(_ sender: UIButton) {
         
         if output.text == "0" {
-                inputString = (sender.titleLabel?.text)!
+                inputString += (sender.titleLabel?.text)!
         }else {
             inputString += (sender.titleLabel?.text)!
         }
-        output.text = inputString
+        setInputLabel(sender)
+//        inputLabel += (sender.titleLabel?.text)!
+        input.text = inputLabel
     }
     
 
