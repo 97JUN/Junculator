@@ -11,107 +11,78 @@ class ViewController: UIViewController {
     
     
     //Outlet
-    @IBOutlet weak var input: UILabel!
-    @IBOutlet weak var output: UILabel!
+    @IBOutlet weak var inputLabel: UILabel!
+    @IBOutlet weak var outputLabel: UILabel!
+    
+    
+    var currentNumber:Double = 0.0
+    var currentOperator:CalcuOperator?//operator 중에 하나(+,-,/,*)
+    var currentOperation: CalcuOperation = CalcuOperation()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        output.text = "0"
     }
     
-    var inputString: String = "0"
-    var prevOper: String = "+"
-    var inputLabel: String = ""
-    
-    var prev: Int = 0
-    var current: Int = 0
-    
-    
-    
-    func calculate() {
-        if prev == 0 {
-            prev = Int(inputString)!
-        }else {
-            current = Int(inputString)!
-            if prevOper == "+"{
-                prev += current
-                output.text = String(prev)
-            }else if prevOper == "-"{
-                prev -= current
-                output.text = String(prev)
-            }else if prevOper == "x"{
-                prev *= current
-                output.text = String(prev)
-            }else if prevOper == "÷"{
-                prev /= current
-                output.text = String(prev)
-            }
-        }
-    }
 
-    func setInputLabel(_ sender: UIButton) {
-        inputLabel += (sender.titleLabel?.text!)!
-        input.text = inputLabel
-        print(inputLabel)
-    }
-    func cal() {
-        
-    }
-    
     //MARK: - IBAction
     
     //Operation
     
     @IBAction func operation(_ sender: UIButton) {
-        if inputString != "" {
-            if sender.titleLabel?.text! == "+"{
-                setInputLabel(sender)
-                calculate()
-            }else if sender.titleLabel?.text! == "-"{
-                setInputLabel(sender)
-                calculate()
-            }else if sender.titleLabel?.text! == "x"{
-                setInputLabel(sender)
-                calculate()
-            }else if sender.titleLabel?.text! == "÷"{
-                setInputLabel(sender)
-                calculate()
-            }else if sender.titleLabel?.text! == "="{
-                calculate()
-                cal()
-                inputLabel = ""
-                input.text =  inputLabel
-                output.text = String(prev)
-                prev = 0
-            }
-            prevOper = sender.titleLabel!.text!
-            inputString  = "0"
+        addoperationNode()
+        
+        var currentOp: CalcuOperator = .plus
+        switch sender.tag {
+        case 101:
+            currentOp = .divide
+        case 102:
+            currentOp = .multiply
+        case 103:
+            currentOp = .minus
+        case 104:
+            currentOp = .plus
+        default :
+            ()
         }
+        currentOperator = currentOp
+        inputLabel.text = inputLabel.text! + " " + currentOp.symbol
+
     }
     
-    @IBAction func clear(_ sender: Any) {
-        inputLabel = ""
-        inputString = "0"
-        input.text = inputLabel
-        output.text = inputString
-        prev = 0
-        current = 0
+    func addoperationNode() {
+        guard currentNumber != 0.0 else {
+            return
+        }
+        if let currentOp  = currentOperator{
+            currentOperation.operationNodes.append(CalcuOperationNode(op: currentOp, operand: currentNumber))
+        }else {
+            currentOperation.baseNumber = currentNumber
+        }
+        currentNumber = 0.0
+        inputLabel.text = String(currentNumber)
+        inputLabel.text = currentOperation.operationString()
     }
     
+    @IBAction func clear(_ sender: UIButton) {
+        inputLabel.text = ""
+        outputLabel.text = ""
+        currentOperation = CalcuOperation()
+    }
     
-    
+    @IBAction func result(_ sender: UIButton) {
+        addoperationNode()
+        //inputLabel.text = inputLabel.text! + "="
+        outputLabel.text = String(currentOperation.calcuReuslt())
+    }
     
 //Number
     @IBAction func touchNumber(_ sender: UIButton) {
+        let buttonNumber = sender.tag - 10
         
-        if output.text == "0" {
-                inputString += (sender.titleLabel?.text)!
-        }else {
-            inputString += (sender.titleLabel?.text)!
-        }
-        setInputLabel(sender)
-//        inputLabel += (sender.titleLabel?.text)!
-        input.text = inputLabel
+        currentNumber = currentNumber * 10 + Double(buttonNumber)
+        
+        inputLabel.text = String(currentNumber)
+        
     }
     
 

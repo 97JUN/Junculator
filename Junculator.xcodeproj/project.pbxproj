@@ -13,6 +13,7 @@
 		2978142629703BC30090FC78 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2978142429703BC30090FC78 /* Main.storyboard */; };
 		2978142829703BC50090FC78 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2978142729703BC50090FC78 /* Assets.xcassets */; };
 		2978142B29703BC50090FC78 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2978142929703BC50090FC78 /* LaunchScreen.storyboard */; };
+		29781433297E7F5A0090FC78 /* CalBrain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29781432297E7F5A0090FC78 /* CalBrain.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		2978142729703BC50090FC78 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2978142A29703BC50090FC78 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2978142C29703BC50090FC78 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		29781432297E7F5A0090FC78 /* CalBrain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalBrain.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +61,7 @@
 				2978141E29703BC30090FC78 /* AppDelegate.swift */,
 				2978142029703BC30090FC78 /* SceneDelegate.swift */,
 				2978142229703BC30090FC78 /* ViewController.swift */,
+				29781432297E7F5A0090FC78 /* CalBrain.swift */,
 				2978142729703BC50090FC78 /* Assets.xcassets */,
 				2978142429703BC30090FC78 /* Main.storyboard */,
 				2978142929703BC50090FC78 /* LaunchScreen.storyboard */,
@@ -141,6 +144,7 @@
 				2978142329703BC30090FC78 /* ViewController.swift in Sources */,
 				2978141F29703BC30090FC78 /* AppDelegate.swift in Sources */,
 				2978142129703BC30090FC78 /* SceneDelegate.swift in Sources */,
+				29781433297E7F5A0090FC78 /* CalBrain.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
